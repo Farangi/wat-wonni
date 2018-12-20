@@ -1,0 +1,43 @@
+<div class="container-fluid form-body">
+  <div class="row">
+      <div class="form-holder">
+          <div class="form-content">
+              <div class="form-items">
+                  <div class="website-logo-inside">
+                      <a href="index.html">
+                          <div class="">
+
+                          </div>
+                      </a>
+                  </div>
+                  <h3>WAT WONNI</h3>
+                  <p>Enter your details below to sign up to our platform.</p>
+                  <div class="page-links">
+                    <a [routerLink]="['/login']">Login</a>
+                    <a href="register.html" class="active">Register</a>
+                  </div>
+                  <form [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)">
+                    <input class="form-control" type="text" name="fullName" formControlName="fullName" placeholder="Full Name" required>
+                    <input class="form-control" type="email" name="email" formControlName="email" placeholder="E-mail Address" required>
+                    <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password" required>
+                  </form>
+                  <form [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)" class="form-inline form-select">
+                    <div class="form-button">
+                      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="accountType" formControlName="accountType" id="inlineFormCustomSelect">
+                          <option value="VENDOR" selected>Vendor</option>
+                          <option value="USER">User</option>
+                        </select>
+                        <button id="submit" type="submit" class="ibtn">Register</button>
+                    </div>
+                    </form>
+                  <div class="other-links">
+                      <span>Or register with</span><a href="#">Facebook</a><a href="#">Google</a><a href="#">Linkedin</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
