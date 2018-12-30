@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { AuthService } from '../_services/authentication.service';
 import { Router } from '@angular/router';
 
@@ -27,8 +27,10 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)])],
       // tslint:disable-next-line:max-line-length
       password: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/), Validators.minLength(6), Validators.maxLength(100)])],
+      // tslint:disable-next-line:max-line-length
+      confirmPassword: ['', Validators.compose([ Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/), Validators.minLength(6), Validators.maxLength(100)])],
       accountType: ['', Validators.compose([Validators.required])]
-    });
+    }, {validators: this.checkPasswords });
   }
 
   private validateForm(form) {
@@ -36,6 +38,12 @@ export class RegisterComponent implements OnInit {
       const control = form.get(field);
       control.markAsTouched({ onlySelf: true });
     });
+  }
+
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    const pass = group.controls.password.value;
+    const confirmPass = group.controls.confirmPassword.value;
+    return pass === confirmPass ? null : { notSame: true };
   }
 
   tryRegister(value) {

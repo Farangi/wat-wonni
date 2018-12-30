@@ -17,16 +17,44 @@
                     <a href="register.html" class="active">Register</a>
                   </div>
                   <form [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)">
-                    <input class="form-control" type="text" name="fullName" formControlName="fullName" placeholder="Full Name" required>
-                    <input class="form-control" type="email" name="email" formControlName="email" placeholder="E-mail Address" required>
-                    <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password" required>
+                    <div class="form-group label-floating is-empty" [ngClass]="{'has-danger': !registerForm.controls.fullName.valid && registerForm.controls.fullName.touched,'has-success': registerForm.controls.fullName.valid && registerForm.controls.fullName.touched}">
+                        <input class="form-control" type="text" name="fullName" formControlName="fullName" placeholder="Full Name" required>
+                        <p class="error-text" *ngIf="registerForm.controls.fullName.hasError('required') && registerForm.controls.fullName.touched">This field is required!</p>
+											  <p class="error-text" *ngIf="registerForm.controls.fullName.hasError('pattern') && registerForm.controls.fullName.touched">Only Alphabets are allowed!</p>
+			  								<p class="error-text" *ngIf="registerForm.controls.fullName.hasError('minlength') && registerForm.controls.fullName.touched">Must have minimum 3 characters!</p>
+			  								<p class="error-text" *ngIf="registerForm.controls.fullName.hasError('maxlength') && registerForm.controls.fullName.touched">Maximum characters can be 50!</p>
+                    </div>
+                    <div class="form-group label-floating is-empty" [ngClass]="{'has-danger': !registerForm.controls.email.valid && registerForm.controls.email.touched, 'has-success': registerForm.controls.email.valid && registerForm.controls.email.touched}">
+                        <input class="form-control" type="email" name="email" formControlName="email" placeholder="E-mail Address" required>
+                        <p class="error-text" *ngIf="registerForm.controls.email.hasError('required') && registerForm.controls.email.touched">This field is required!</p>
+			  							  <p class="error-text" *ngIf="registerForm.controls.email.hasError('pattern') && registerForm.controls.email.touched">Email is not valid!</p>
+                    </div>
+                    <div class="form-group label-floating is-empty" [ngClass]="{'has-danger': !registerForm.controls.password.valid && registerForm.controls.password.touched, 'has-success': registerForm.controls.password.valid && registerForm.controls.password.touched}">
+                        <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password" required>
+                        <p class="error-text" *ngIf="registerForm.controls.password.hasError('required') && registerForm.controls.password.touched">This field is required!</p>
+										  	<p class="error-text" *ngIf="registerForm.controls.password.hasError('pattern') && registerForm.controls.password.touched">Must have at least 1 character and 1 number!</p>
+										  	<p class="error-text" *ngIf="registerForm.controls.password.hasError('minlength') && registerForm.controls.password.touched">Must have minimum 6 characters!</p>
+										  	<p class="error-text" *ngIf="registerForm.controls.password.hasError('maxlength') && registerForm.controls.password.touched">Maximum characters can be 100!</p>
+                    </div>
+
+                    <div class="form-group label-floating is-empty" [ngClass]="{'has-danger': !registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.touched, 'has-success': registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.touched}">
+                        <input class="form-control" type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
+                        <p class="error-text" *ngIf="registerForm.controls.confirmPassword.hasError('required') && registerForm.controls.confirmPassword.touched">This field is required!</p>
+										  	<p class="error-text" *ngIf="registerForm.controls.confirmPassword.hasError('pattern') && registerForm.controls.confirmPassword.touched">Must have at least 1 character and 1 number!</p>
+										  	<p class="error-text" *ngIf="registerForm.controls.confirmPassword.hasError('minlength') && registerForm.controls.confirmPassword.touched">Must have minimum 6 characters!</p>
+                        <p class="error-text" *ngIf="registerForm.controls.confirmPassword.hasError('maxlength') && registerForm.controls.confirmPassword.touched">Maximum characters can be 100!</p>
+                        <p class="error-text" *ngIf="registerForm.hasError('notSame') && registerForm.controls.confirmPassword.touched">Passwords don't match!</p>
+                    </div>
                   </form>
                   <form [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)" class="form-inline form-select">
                     <div class="form-button">
-                      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="accountType" formControlName="accountType" id="inlineFormCustomSelect">
+                        <div class="form-group label-floating is-empty" [ngClass]="{'has-danger': !registerForm.controls.accountType.valid && registerForm.controls.accountType.touched, 'has-success': registerForm.controls.accountType.valid && registerForm.controls.accountType.touched}">
+                        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="accountType" formControlName="accountType" id="inlineFormCustomSelect">
                           <option value="VENDOR" selected>Vendor</option>
                           <option value="USER">User</option>
                         </select>
+                        <p class="error-text" *ngIf="registerForm.controls.accountType.hasError('required') && registerForm.controls.accountType.touched">This field is required!</p>
+                        </div>
                         <button id="submit" type="submit" class="ibtn">Register</button>
                     </div>
                     </form>
